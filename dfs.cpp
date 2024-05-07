@@ -35,6 +35,7 @@ vector<int> dfs(const vector<vector<int>>& graph, int start, int end){
             arr.pop_back();
         }
     }
+    arr.clear();
     return arr;
 }
 
