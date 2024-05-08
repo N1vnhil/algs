@@ -1,82 +1,47 @@
-#include<queue>
 #include<vector>
+#include<queue>
 #include<iostream>
-#include<stack>
-#include <algorithm>
+#include<climits>
+#include<algorithm>
 using namespace std;
-
-int bfs(vector<vector<int>> graph, int start, int end){
-    vector<int> isMarked(graph.size(), 0);
-    int node, c=0;
+vector<int> bfs(vector<vector<int>> graph, int start, int end){
+    vector<int> parent(graph.size(), -1);
+    vector<int> arr;
     queue<int> Q;
-    node = start;
-    Q.push(node);
+    Q.push(start);
+    parent[start] = INT_MAX;
 
     while(!Q.empty()){
-        int layerSize = Q.size();
-        for(int i=0; i<layerSize; i++){
-            node = Q.front();
+        for(int i=0; i<Q.size(); i++){
+            int node = Q.front();
             Q.pop();
-            if(node==end) return c;
-            for(int j: graph[node]){
-                if(!isMarked[j]) Q.push(j);
-            } 
-        }
-        c++;
-    }
-    return -1;
-}
 
-vector<int> pbfs(vector<vector<int>> graph, int start, int end){
-    vector<int> arr;
-    vector<int> isMarked(graph.size(), 0);
-    int node = start;
-    queue<int> Q;
-    Q.push(node);
-    int c = 0;
-    bool found = false;  // 用于标记是否找到目标节点
+            if(node==end){
+                arr.push_back(node);
+                while(node!=start){
+                    node = parent[node];
+                    arr.push_back(node);
+                }
+                reverse(arr.begin(), arr.end());
+                return arr;
+            };
 
-    while (!Q.empty() && !found) {
-        int size = Q.size();
-        for (int i = 0; i < size; i++) {
-            node = Q.front();
-            Q.pop();
-            if (node == end) {
-                found = true;
-                break;
-            }
-            for (int j : graph[node]) {
-                if (!isMarked[j]) {
-                    Q.push(j);
-                    isMarked[j] = node;  
+            for(int i:graph[node]){
+                if(parent[i]==-1){
+                    Q.push(i);
+                    parent[i] = node;
                 }
             }
         }
-        c++;
     }
 
-    if (found) {
-        // 构建路径
-        vector<int> path;
-        int curr = end;
-        while (curr != start) {
-            path.push_back(curr);
-            curr = isMarked[curr];
-        }
-        path.push_back(start);
-        reverse(path.begin(), path.end());
-        
-        cout << "Path length: " << c << endl;
-        return path;
-    } else {
-        arr.clear();
-        cout << "No path found" << endl;
-        return arr;
-    }
+    vector<int> nopath(1,-1);
+    return nopath;
 }
 
 int main(){
     vector<vector<int>> g = {{1,2},{2,3},{4},{},{0,3}};
-    vector<int> arr = pbfs(g,0,4);
-    for(int i:arr) cout << i << " ";
+    for(int i: bfs(g,0,4)) cout << i << " "; cout << endl;
+    for(int i: bfs(g,2,4)) cout << i << " "; cout << endl;
+    for(int i: bfs(g,0,2)) cout << i << " "; cout << endl;
 }
