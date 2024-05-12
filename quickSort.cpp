@@ -1,6 +1,4 @@
 #include<iostream>
-#include<vector>
-using namespace std;
 
 void quickSort(int* arr, int n){    // n = size of arr
     if(n<2) return;
@@ -36,5 +34,5 @@ void quickSort(int* arr, int n){    // n = size of arr
 int main(){
     int arr[9] = {3,9,2,8,5,4,7,1,6};
     quickSort(arr,9);
-    for(int i=0; i<9; i++) cout << i << " ";
+    for(int i=0; i<9; i++) std::cout << i << " ";
 }
