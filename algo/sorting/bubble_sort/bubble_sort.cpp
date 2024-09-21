@@ -7,6 +7,9 @@ using namespace std;
 int main() {
     vector<int> a = {5, 3, 2, 4, 1};
     show(sort(a));
+
+    vector<int> b = {3, 1, 7, 8, 5, 9, 2, -1, 5};
+    show(sort(b));
     return 0;
 }
 
