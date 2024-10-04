@@ -43,6 +43,8 @@ int SeqList<T>::length() {return size;}
 
 template<typename T>
 void SeqList<T>::insert(int i, const T& val) {
+    if(i>size) throw OutOfBound();
+
     this->resize();
     for(int j=size; j>i; j--) {
         arr[j] = arr[j-1];
@@ -53,7 +55,7 @@ void SeqList<T>::insert(int i, const T& val) {
 
 template<typename T>
 T SeqList<T>::remove(int i) {
-    if(i>=size) throw "Out of Bound.";
+    if(i>=size) throw OutOfBound();
     this->resize();
     T temp = arr[i];
     for(int j=i+1; j<size; j++) {
@@ -65,6 +67,7 @@ T SeqList<T>::remove(int i) {
 
 template<typename T>
 T SeqList<T>::visit(int i) const {
+    if(i>=size) throw OutOfBound();
     return arr[i];
 }
 

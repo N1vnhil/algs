@@ -16,4 +16,6 @@ public:
     virtual ~List(){};
 };
 
+class OutOfBound{};
+
 #endif 

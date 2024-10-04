@@ -1,10 +1,9 @@
 #ifndef LINKEDLIST_H
 #define LINKEDLIST_H
-#include"List.h"
+#include "List.h"
 
-template<template T>
+template<typename T>
 class LinkedList: public List<T> {
-private:
     struct node {
         T val;
         node* next;
@@ -14,6 +13,7 @@ private:
         node(){next=nullptr;}
         ~node(){};
     };
+
     int size;
     node* head;
     

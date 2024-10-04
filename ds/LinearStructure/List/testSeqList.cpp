@@ -1,6 +1,9 @@
+#define CRTDBG_MAP_ALLOC
 #include<iostream>
-#include"SeqList.cpp"
+#include<crtdbg.h>
 #include<string>
+#include"SeqList.cpp"
+
 using namespace std;
 
 
@@ -9,7 +12,7 @@ int main() {
     string str = "apples in";
     for(int i=0; i<str.size(); i++) {arr.insert(i, str[i]);}
     arr.traverse();
-
+    cout << "line 15" << endl;
     arr.remove(2);
     arr.traverse();
 
@@ -33,8 +36,14 @@ int main() {
         arr.insert(arr.length(), ch);
         cout << arr.length() << ' ';
     }
+    cout << "line 39" << endl;
     arr.traverse();
 
+    // arr.visit(100);
+
+    _CrtDumpMemoryLeaks();
+    system("pause");
+    return 0;
 }
 
 // length passed
