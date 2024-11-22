@@ -71,8 +71,8 @@ void BST<K, V>::remove(const K& x) {
     node* tmp = root, *parent = nullptr;
     while(tmp != nullptr && tmp->key != x) {
         parent = tmp;
-        if(tmp->key < x) tmp = tmp->left;
-        else tmp = tmp->right;
+        if(tmp->key < x) tmp = tmp->right;
+        else tmp = tmp->left;
     }
 
     node* tgt;
@@ -98,6 +98,7 @@ void BST<K, V>::remove(const K& x) {
             if(!parent) {
                 delete root;
                 root = tgt;
+                return;
             }
 
             else if(parent->left && parent->left == tmp) {
@@ -133,13 +134,9 @@ int main() {
     Set<int, char> s7 = Set<int, char>(-10, 'g');
 
     bst.insert(s1); bst.insert(s2); bst.insert(s3); bst.insert(s4); bst.insert(s5); bst.insert(s6); bst.insert(s7);
+
+    bst.remove(-10); 
+    bst.remove(-1);
+    bst.remove(1);
     bst.traverse();
-
-    Set<int, char>* tmp = bst.find(5); 
-    if(tmp) cout << tmp->val << endl;
-    else cout << "Node not exist." << endl;
-
-    Set<int, char>* tmp1 = bst.find(10); 
-    if(tmp1) cout << tmp1->val << endl;
-    else cout << "Node not exist." << endl;
 }
