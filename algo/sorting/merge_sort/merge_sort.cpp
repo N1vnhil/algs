@@ -10,7 +10,7 @@ vector<int> merge(vector<int>&, vector<int>&);
 
 
 vector<int> merge_sort(vector<int>& arr, int l, int r) {
-    if(l >= r) return vector<int>{arr[l]};
+    if(l == r) return vector<int>{arr[l]};
 
     vector<int> arr1 = merge_sort(arr, l, (l + r) / 2);
     vector<int> arr2 = merge_sort(arr, (l + r) / 2 + 1, r);
