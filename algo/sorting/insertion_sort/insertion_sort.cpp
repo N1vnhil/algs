@@ -1,6 +1,5 @@
 #include <vector>
 #include <iostream>
-#include <cassert>
 #include "../sort.h"
 using namespace std;
 
