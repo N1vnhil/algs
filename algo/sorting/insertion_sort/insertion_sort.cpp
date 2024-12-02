@@ -2,32 +2,55 @@
 #include <iostream>
 #include <cassert>
 #include "../sort.h"
-
 using namespace std;
 
-int main() {
-    vector<int> a = {5, 3, 2, 4, 1};
-    sort(a);
-    assert(a == vector<int>({1, 2, 3, 4, 5}));
-    show(a);
+template<typename K, typename V>
+void simpleSort(vector<SET<K, V>>&);
 
-    vector<int> b = {3, 1, 7, 8, 5, 9, 2, -1, 5};
-    sort(b);
-    assert(b == vector<int>({-1, 1, 2, 3, 5, 5, 7, 8, 9}));
-    show(b);
+template<typename K, typename V>
+void shellSort(vector<SET<K, V>>&);
+
+int main() {
+    vector<SET<int, int>> a = {SET<int, int>(5, 5), SET<int, int>(3, 3), SET<int, int>(2, 2), SET<int, int>(4, 4), SET<int, int>(1, 1)};
+    vector<SET<int, int>> b = {SET<int, int>(3, 3), SET<int, int>(7, 7), SET<int, int>(-1, -1)};
+
+    simpleSort(a);
+    simpleSort(b);
+    show(a); show(b);
+
+    shellSort(a);
+    shellSort(b);
+    show(a); show(b);
+    
     return 0;
 }
 
-void sort(vector<int>& arr) {
-    for(int i=1; i<arr.size(); i++) {
-        int j = i, temp;
-        while(j > 0 && arr[j-1]>arr[j]) {
-            temp = arr[j];
+template<typename K, typename V>
+void simpleSort(vector<SET<K, V>>& arr) {
+    int n = arr.size();
+    for(int i=0; i<n; i++) {
+        int j = i;
+        SET<K, V> tmp = arr[i];
+        while(j > 0 && arr[j-1].key > tmp.key) {
             arr[j] = arr[j-1];
-            arr[j-1] = temp;
             j--;
         }
+        arr[j] = tmp;
     }
-
 }
+
+template<typename K, typename V>
+void shellSort(vector<SET<K, V>>& arr) {
+    int n = arr.size();
+    for(int i = n / 2; i > 0; i /= 2) {
+        for(int j = i; j < n; j++) {
+            auto tmp = arr[j];
+            for(int k = j; k > 0 && arr[k].key < arr[k-i].key; k -= i) {
+                arr[k] = arr[k - i];
+            }
+            arr[j] = tmp;
+        }
+    }
+}
+
 
